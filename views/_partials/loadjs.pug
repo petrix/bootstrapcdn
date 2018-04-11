@@ -8,10 +8,8 @@
     })[0];
     var clipboardjs = config.javascript.filter(function(o) { return o.name === 'clipboardjs'; })[0];
     var clipboardjsUri = getVersionedPath(clipboardjs.uri);
-    var clipboardjsSri = generateSRI(clipboardjs.uri);
     var mainJs = config.javascript.filter(function(o) { return o.name === 'main'; })[0];
     var mainJsUri = getVersionedPath(mainJs.uri);
-    var mainJsSri = generateSRI('/assets/js/main.js');
 
 | var mainJsUri = '#{mainJsUri}';
 | var clipboardjsUri = '#{clipboardjsUri}';
@@ -19,10 +17,6 @@
 | var bootstrapBundleUri = '#{bootstrap.javascriptBundle}';
 |
 | loadjs([clipboardjsUri, mainJsUri], 'main', {
-|    before: function(path, el) {
-|        el.integrity = path === mainJsUri ? '#{mainJsSri}' : '#{clipboardjsSri}';
-|        el.crossOrigin = 'anonymous';
-|     },
 |     async: false
 | });
 | loadjs([jqueryUri, bootstrapBundleUri], 'jquery', {

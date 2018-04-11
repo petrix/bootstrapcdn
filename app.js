@@ -19,6 +19,7 @@ const STATIC_OPTS  = {
 // middleware
 const compression  = require('compression');
 const favicon      = require('serve-favicon');
+const minify       = require('express-minify');
 const logger       = require('morgan');
 const errorHandler = require('errorhandler');
 const enforce      = require('express-sslify');
@@ -89,6 +90,10 @@ if (NODE_ENV === 'production') {
 
 // middleware
 app.use(compression());
+// UNCOMMENT ME
+//if (NODE_ENV === 'production') {
+app.use(minify());
+//}
 app.use(staticify.middleware);
 
 app.use(favicon(path.join(PUBLIC_DIR, config.favicon.uri), '7d'));
@@ -109,6 +114,12 @@ app.use((req, res, next) => {
     res.setHeader('X-Powered-By', 'StackPath');
 
     res.locals.nonce = nonce;
+
+    // Don't minify files that are already minified
+    if (/\.min(\..{7})?\.(css|js)$/.test(req.url)) {
+        res.minifyOptions = res.minifyOptions || {};
+        res.minifyOptions.minify = false;
+    }
 
     next();
 });
