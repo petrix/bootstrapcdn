@@ -3,6 +3,7 @@
 const http         = require('http');
 const path         = require('path');
 const express      = require('express');
+const mime         = require('mime');
 const uuidv4       = require('uuid/v4');
 const semver       = require('semver');
 
@@ -10,10 +11,14 @@ const semver       = require('semver');
 const ENV          = process.env;
 const NODE_ENV     = ENV.NODE_ENV || 'development';
 const PUBLIC_DIR   = path.join(__dirname, 'public');
+const customMime = mime.define({
+    'text/javascript': ['js']
+}, true);
 const STATIC_OPTS  = {
     maxAge: '1y',
     lastModified: true,
-    etag: false
+    etag: false,
+    mime: customMime
 };
 
 // middleware
