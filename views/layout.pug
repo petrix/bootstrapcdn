@@ -49,8 +49,9 @@ html(lang='en', prefix='og: http://ogp.me/ns#', itemscope, itemtype='http://sche
         meta(name='twitter:widgets:csp', content='on')
 
         -var bootswatch = helpers.theme.fetch(config, theme);
-        link(rel='stylesheet', href=bootswatch.uri, integrity=bootswatch.sri,
-            crossorigin='anonymous')
+        noscript
+            link(rel='stylesheet', href=bootswatch.uri, integrity=bootswatch.sri,
+                crossorigin='anonymous')
 
         block stylesheets
 
