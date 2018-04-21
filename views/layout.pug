@@ -49,8 +49,9 @@ html(lang='en', prefix='og: http://ogp.me/ns#', itemscope, itemtype='http://sche
         meta(name='twitter:widgets:csp', content='on')
 
         -var bootswatch = helpers.theme.fetch(config, theme);
-        link(rel='preload', href=bootswatch.uri, crossorigin='anonymous', as="style")
-        link(rel='stylesheet', href=bootswatch.uri, crossorigin='anonymous')
+        noscript
+            link(rel='stylesheet', href=bootswatch.uri, integrity=bootswatch.sri,
+                crossorigin='anonymous')
 
         block stylesheets
 
@@ -59,6 +60,10 @@ html(lang='en', prefix='og: http://ogp.me/ns#', itemscope, itemtype='http://sche
                 include:clean-css /assets/css/style.css
             else
                 include /assets/css/style.css
+
+        script(nonce=nonce)
+            include /assets/js/vendor/loadjs.min.js
+            include _partials/loadjs.pug
 
         block head
 
@@ -80,9 +85,5 @@ html(lang='en', prefix='og: http://ogp.me/ns#', itemscope, itemtype='http://sche
                             .twitter-timeline-custom
 
         include _partials/footer.pug
-
-        script(nonce=nonce)
-            include /assets/js/vendor/loadjs.min.js
-            include _partials/loadjs.pug
 
 //- vim: ft=pug sw=4 sts=4 et:
