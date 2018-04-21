@@ -14,12 +14,6 @@
 | var jqueryUri = '#{jquery.uri}';
 | var bootstrapBundleUri = '#{bootstrap.javascriptBundle}';
 |
-| loadjs('css!#{bootswatch.uri}', 'bootswatch', {
-|    before: function(path, el) {
-|        el.integrity = '#{bootswatch.sri}';
-|        el.crossOrigin = 'anonymous';
-|     }
-| });
 | loadjs([clipboardjsUri, mainJsUri], 'main', {
 |    before: function(path, el) {
 |        el.integrity = path === mainJsUri ? '#{mainJsSri}' : '#{clipboardjsSri}';
