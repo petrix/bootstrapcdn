@@ -1,13 +1,13 @@
 -
-    var bootswatchVersion = semver.coerce(config.bootswatch4.version);
-    var bootstrap = config.bootstrap.find((file) => semver.satisfies(file.version, `~${bootswatchVersion}`));
-    var jquery = config.javascript.find((file) => file.name === 'jquery');
-    var clipboardjs = config.javascript.find((file) => file.name === 'clipboardjs');
-    var clipboardjsUri = getVersionedPath(clipboardjs.uri);
-    var clipboardjsSri = generateSRI(clipboardjs.uri);
-    var mainJs = config.javascript.find((file) => file.name === 'main');
-    var mainJsUri = getVersionedPath(mainJs.uri);
-    var mainJsSri = generateSRI('/assets/js/main.js');
+    const bootswatchVersion = semver.coerce(config.bootswatch4.version);
+    const bootstrap = config.bootstrap.find((file) => semver.satisfies(file.version, `~${bootswatchVersion}`));
+    const jquery = config.javascript.find((file) => file.name === 'jquery');
+    const clipboardjs = config.javascript.find((file) => file.name === 'clipboardjs');
+    const clipboardjsUri = getVersionedPath(clipboardjs.uri);
+    const clipboardjsSri = generateSRI(clipboardjs.uri);
+    const mainJs = config.javascript.find((file) => file.name === 'main');
+    const mainJsUri = getVersionedPath(mainJs.uri);
+    const mainJsSri = generateSRI('/assets/js/main.js');
 
 | var mainJsUri = '#{mainJsUri}';
 | var clipboardjsUri = '#{clipboardjsUri}';

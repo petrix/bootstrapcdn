@@ -3,7 +3,8 @@ extends layout.pug
 block content
     h2.text-center=title
 
-    -var current = config.bootstrap[0];
+    -const current = config.bootstrap[0];
+
     h3.text-center.mt-4=`v${current.version}`
 
     .card.bg-light.mt-4.p-4.text-center

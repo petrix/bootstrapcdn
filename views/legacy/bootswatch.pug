@@ -4,9 +4,9 @@ block content
     h2.text-center.mb-4 Bootswatch 3
 
     each item in config.bootswatch3.themes
-        -var name = item.name.toLowerCase();
-        -var sri  = item.sri;
-        -var file = config.bootswatch3.bootstrap.replace('SWATCH_NAME', name).replace('SWATCH_VERSION', config.bootswatch3.version);
+        -const name = item.name.toLowerCase();
+        -const sri  = item.sri;
+        -const file = config.bootswatch3.bootstrap.replace('SWATCH_NAME', name).replace('SWATCH_VERSION', config.bootswatch3.version);
 
         .card.bg-light.my-4.p-4.text-center
             .row

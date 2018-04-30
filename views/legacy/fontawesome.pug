@@ -8,10 +8,10 @@ block content
             .card.bg-light.mt-4.p-4.text-center
                 h3.mt-2=`v${item.version}`
 
-                -var name   = `fontawesomecss_${item.version.replace(/\./g, '_')}`;
-                -var file   = item.stylesheet;
-                -var sri    = item.stylesheetSri;
-                -var formId = `${name}_form`;
+                -const name   = `fontawesomecss_${item.version.replace(/\./g, '_')}`;
+                -const file   = item.stylesheet;
+                -const sri    = item.stylesheetSri;
+                -const formId = `${name}_form`;
 
                 .form-group.my-4
                     label.font-weight-bold(for=formId) Complete CSS

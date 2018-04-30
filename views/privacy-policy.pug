@@ -1,9 +1,9 @@
 extends layout.pug
 
 block stylesheets
-    -var iubenda = config.stylesheet.find((file) => file.name === 'iubenda');
-    link(rel='stylesheet', href=getVersionedPath(iubenda.uri),
-         integrity=generateSRI(iubenda.uri), crossorigin='anonymous')
+    -const iubendaCss = config.stylesheet.find((file) => file.name === 'iubenda');
+    link(rel='stylesheet', href=getVersionedPath(iubendaCss.uri),
+         integrity=generateSRI(iubendaCss.uri), crossorigin='anonymous')
 
 block content
     .row

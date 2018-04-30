@@ -4,10 +4,10 @@ block content
     h2.text-center.mb-4 Bootlint
 
     .card.bg-light.mt-4.p-4.text-center
-        -var name   = 'bootlintjs';
-        -var file   = config.bootlint[0].javascript;
-        -var sri    = config.bootlint[0].javascriptSri;
-        -var formId = `${name}_form`;
+        -const name   = 'bootlintjs';
+        -const file   = config.bootlint[0].javascript;
+        -const sri    = config.bootlint[0].javascriptSri;
+        -const formId = `${name}_form`;
 
         .form-group.my-4
             label.font-weight-bold(for=formId) Complete JavaScript
