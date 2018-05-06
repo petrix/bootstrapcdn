@@ -86,10 +86,47 @@ function exists(file) {
 // fontawesome
 ((() => {
     for (const fontawesome of config.fontawesome) {
+        // Skip when the key doesn't exist
+        if (typeof fontawesome.stylesheetAll === 'undefined') {
+            continue;
+        }
+        if (typeof fontawesome.stylesheetBrands === 'undefined') {
+            continue;
+        }
+        if (typeof fontawesome.stylesheetBrands === 'undefined') {
+            continue;
+        }
+        if (typeof fontawesome.stylesheetRegular === 'undefined') {
+            continue;
+        }
+        if (typeof fontawesome.stylesheetSolid === 'undefined') {
+            continue;
+        }
+
         const stylesheet = buildPath(fontawesome.stylesheet);
+        const stylesheetAll = buildPath(fontawesome.stylesheetAll);
+        const stylesheetBrands = buildPath(fontawesome.stylesheetBrands);
+        const stylesheetRegular = buildPath(fontawesome.stylesheetRegular);
+        const stylesheetSolid = buildPath(fontawesome.stylesheetSolid);
 
         if (exists(stylesheet)) {
             fontawesome.stylesheetSri = sri.digest(stylesheet);
+        }
+
+        if (exists(stylesheetAll)) {
+            fontawesome.stylesheetAllSri = sri.digest(stylesheetAll);
+        }
+
+        if (exists(stylesheetBrands)) {
+            fontawesome.stylesheetBrandsSri = sri.digest(stylesheetBrands);
+        }
+
+        if (exists(stylesheetRegular)) {
+            fontawesome.stylesheetRegularSri = sri.digest(stylesheetRegular);
+        }
+
+        if (exists(stylesheetSolid)) {
+            fontawesome.stylesheetSolidSri = sri.digest(stylesheetSolid);
         }
     }
 }))();
