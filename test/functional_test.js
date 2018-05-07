@@ -11,11 +11,12 @@ const config = helpers.getConfig();
 
 const responses = {};
 
+// Expects all headers to be lower case in this object.
 const expectedHeaders = {
     'accept-ranges': 'bytes',
     'access-control-allow-origin': '*',
     'cache-control': 'max-age=31536000',
-    'connection': 'Keep-Alive',
+    'connection': 'keep-alive',
     'content-encoding': 'gzip',
     'content-length': '',
     'date': '',
@@ -58,6 +59,7 @@ function assertSRI(uri, actualSri, done) {
 const s3include = ['content-type'];
 
 function assertHeaders(uri, header) {
+    header = header.toLowerCase();
     if (typeof process.env.TEST_S3 !== 'undefined' && !s3include.includes(header)) {
         it.skip(`has ${header}`);
     } else {

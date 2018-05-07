@@ -2,10 +2,10 @@
 
 'use strict';
 
-const fs      = require('fs');
-const path    = require('path');
-const request = require('request');
-const helpers = require('../lib/helpers.js');
+const fs       = require('fs');
+const path     = require('path');
+const request  = require('request');
+const helpers  = require('../lib/helpers.js');
 
 const version  = process.argv[2];
 const verMajor = version[0];

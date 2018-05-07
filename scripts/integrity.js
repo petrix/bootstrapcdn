@@ -8,8 +8,8 @@ const yaml       = require('js-yaml');
 const helpers    = require('../lib/helpers.js');
 const sri        = require('./sri.js');
 
-const configFile = helpers.getConfigPath();
-const config     = helpers.getConfig();
+const configFile = helpers.getConfigPath('_files.yml');
+const config     = helpers.loadConfig('_files.yml');
 
 // create backup file
 fs.createReadStream(configFile)

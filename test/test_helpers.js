@@ -10,7 +10,9 @@ const mockDate = require('mockdate');
 const request = require('request');
 const validator = require('html-validator');
 const app = require('../app.js');
-const helpers = require('../lib/helpers.js');
+const helpers = require('../lib/helpers');
+
+const config = helpers.getConfig();
 
 // The server object holds the server instance across all tests;
 // We start it in the first test and close it in the last one,
@@ -62,8 +64,10 @@ function assertContentType(uri, currentType, cb) {
     cb();
 }
 
+// Just returning the existent config so that
+// we don't have to import lib/helpers in tests.
 function getConfig() {
-    return helpers.getConfig();
+    return config;
 }
 
 function cleanEndpoint(endpoint = '/') {
@@ -78,7 +82,6 @@ function cleanEndpoint(endpoint = '/') {
 }
 
 function getPort() {
-    const config = getConfig();
     // don't use configured port
     const port = config.port < 3000 ? config.port + 3000 : config.port + 1;
 
@@ -125,7 +128,6 @@ function prefetch(uri, cb) {
     });
 }
 
-
 function assertValidHTML(res, cb) {
     const options = {
         data: res.body,
@@ -167,7 +169,6 @@ function assertPageHeader(txt, res, cb) {
 }
 
 function assertAuthors(res, cb) {
-    const config = getConfig();
     const authors = config.authors.map((author) => author.name).join(', ');
     const authorsStr = `<meta name="author" content="${authors}">`;
 
