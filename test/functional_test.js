@@ -26,13 +26,22 @@ const expectedHeaders = {
     'x-hello-human': 'Say hello back! @getBootstrapCDN on Twitter'
 };
 
+const domains = {
+    ipv4: 'stackpath.bootstrapcdn.com',
+    ipv6: '2001:4de0:ac19::1:b:1a'
+};
+
 // Helper functions used in this file
-function domainCheck(uri) {
-    if (typeof process.env.TEST_S3 === 'undefined') {
-        return uri;
+function domainCheck(uri, replacement) {
+    if (typeof process.env.TEST_S3 !== 'undefined') {
+        return uri.replace('https://stackpath.bootstrapcdn.com/', process.env.TEST_S3);
     }
 
-    return uri.replace('https://stackpath.bootstrapcdn.com/', process.env.TEST_S3);
+    if (replacement === domains.ipv6) {
+        return uri.replace('stackpath.bootstrapcdn.com', `[${replacement}]`);
+    }
+
+    return uri;
 }
 
 function request(uri, cb) {
@@ -81,23 +90,9 @@ function assertHeaders(uri, header) {
 
 describe('functional', () => {
     config.bootstrap.forEach((self) => {
-        describe(domainCheck(self.javascript), () => {
-            const uri = domainCheck(self.javascript);
-
-            it('it works', (done) => {
-                request(uri, (res) => {
-                    helpers.assert.itWorks(res.statusCode, done);
-                });
-            });
-
-            it('has integrity', (done) => {
-                assertSRI(uri, self.javascriptSri, done);
-            });
-        });
-
-        if (self.javascriptBundle) {
-            describe(domainCheck(self.javascriptBundle), () => {
-                const uri = domainCheck(self.javascriptBundle);
+        Object.keys(domains).forEach((domain) => {
+            describe(domainCheck(self.javascript, domains[domain]), () => {
+                const uri = domainCheck(self.javascript);
 
                 it('it works', (done) => {
                     request(uri, (res) => {
@@ -106,22 +101,38 @@ describe('functional', () => {
                 });
 
                 it('has integrity', (done) => {
-                    assertSRI(uri, self.javascriptBundleSri, done);
-                });
-            });
-        }
-
-        describe(domainCheck(self.stylesheet), () => {
-            const uri = domainCheck(self.stylesheet);
-
-            it('it works', (done) => {
-                request(uri, (res) => {
-                    helpers.assert.itWorks(res.statusCode, done);
+                    assertSRI(uri, self.javascriptSri, done);
                 });
             });
 
-            it('has integrity', (done) => {
-                assertSRI(uri, self.stylesheetSri, done);
+            if (self.javascriptBundle) {
+                describe(domainCheck(self.javascriptBundle, domains[domain]), () => {
+                    const uri = domainCheck(self.javascriptBundle, domains[domain]);
+
+                    it('it works', (done) => {
+                        request(uri, (res) => {
+                            helpers.assert.itWorks(res.statusCode, done);
+                        });
+                    });
+
+                    it('has integrity', (done) => {
+                        assertSRI(uri, self.javascriptBundleSri, done);
+                    });
+                });
+            }
+
+            describe(domainCheck(self.stylesheet, domains[domain]), () => {
+                const uri = domainCheck(self.stylesheet, domains[domain]);
+
+                it('it works', (done) => {
+                    request(uri, (res) => {
+                        helpers.assert.itWorks(res.statusCode, done);
+                    });
+                });
+
+                it('has integrity', (done) => {
+                    assertSRI(uri, self.stylesheetSri, done);
+                });
             });
         });
     });
