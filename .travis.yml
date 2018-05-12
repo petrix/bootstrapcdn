@@ -6,7 +6,9 @@ language: node_js
 node_js:
   - "10"
 
-script: npm run ci
+script:
+  - ifconfig -a
+  - npm run ci
 
 after_success:
   - npm run coverage
