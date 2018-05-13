@@ -8,9 +8,6 @@ node_js:
 
 script: npm run ci
 
-after_success:
-  - npm run coverage
-
 matrix:
   fast_finish: true
 
